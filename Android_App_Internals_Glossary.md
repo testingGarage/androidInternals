@@ -56,8 +56,17 @@
 22. **GC_Explicit**
 	 -	The GC is asked to collect explicitly and not triggered by high water marks in the heap.
 	 -	Frequent call of this indicates, the app or framework used in the app is smart enough to know the space is needed and when a thread is killed."
-23. Concurrent Mark Sweep
+23. **Concurrent Mark Sweep**
+	 -	ART uses CMS as the default GC type
+	 -	CMS tries to reduce pause time by doing most of the work concurrently to the application thread
+	 -	ART further optimizes using Sticky CMS and Partial CMS
+	 -	ART performs heap compaction when the app is moved from background to foreground
 24. Background Partial Concurrent Mark Sweep
+	 -	It collects all the spaces except for image spaces and zygote spaces
 25. Background Sticky Concurrent Mark Sweep
+	 -	It is ART's non-moving generational garbage collector
+	 -	It scans only the portion of the heap that was modified since the last GC
+	 -	It can reclaim only the objects alloted since the last GC
+	 -	Since it frees the memory objects allocated since last GC, it is much faster and has less pause time
 
  
